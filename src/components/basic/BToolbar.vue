@@ -1,6 +1,6 @@
 <template>
   <v-toolbar
-    color="primary"
+    :color="color"
     :app="app"
     :dense="dense"
     :flat="flat"
@@ -22,6 +22,11 @@
 <script>
 export default {
   props: {
+    color: {
+      type: String,
+      required: true,
+      description: "Color of toolbar"
+    },
     title: {
       type: String,
       required: false,

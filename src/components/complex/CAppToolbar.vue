@@ -1,5 +1,5 @@
 <template>
-  <BToolbar title="My" subtitle="Videos" :extended="searchVideo">
+  <BToolbar color="primary" title="My" subtitle="Videos" :extended="searchVideo">
     <v-icon
       class="pr-4"
       color="subaccent"
