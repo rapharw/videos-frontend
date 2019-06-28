@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BTitle :title="title"></BTitle>
+    <BTitle color="white" :title="title"></BTitle>
     <div :class="cssSpacing"></div>
     <slot name="slot-content"></slot>
     <div :class="cssSpacing"></div>
