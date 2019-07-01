@@ -27,6 +27,10 @@ export default {
   overflow: scroll;
   width: 100%;
 }
+.row::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
 .row__inner {
   transition: 450ms -webkit-transform;
   transition: 450ms transform;

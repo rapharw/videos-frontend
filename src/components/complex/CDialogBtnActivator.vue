@@ -9,8 +9,12 @@
     ></BButton>
     <v-dialog v-model="dialog" width="500">
       <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>{{titleDialog}}</v-card-title>
-
+        <v-card-title class="headline" primary-title>{{titleDialog}}</v-card-title>
+        <v-divider></v-divider>
+        <br>
+        <div class="text-xs-center">
+          <img src="@/assets/my-videos-logo.png" class="img-rounded" height="45">
+        </div>
         <v-card-text>
           <slot name="content-dialog"></slot>
         </v-card-text>
@@ -58,5 +62,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.img-rounded {
+  border-radius: 1em;
+}
 </style>
