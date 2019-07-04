@@ -4,17 +4,24 @@
       :contentHomePrincipalItem="contentHomePrincipalItem"
       :contentHomeHighlyCatalogItem="contentHomeHighlyCatalogItem"
     ></HomeIndex>
+
+    <br>
+    <BStepper></BStepper>
   </div>
 </template>
 
 <script>
+import BStepper from "@/components/basic/BStepper.vue";
 import HomeIndex from "@/structure/home/HomeIndex.vue";
 export default {
   components: {
-    HomeIndex
+    HomeIndex,
+    BStepper
   },
   data() {
     return {
+      e6: 1,
+
       //data of carousel
       contentHomePrincipalItem: [
         {

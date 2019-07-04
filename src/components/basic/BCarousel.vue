@@ -39,6 +39,9 @@ export default {
   position: absolute;
   bottom: 0;
   padding: 10px;
-  color: #fff;
+  color: rgb(189, 181, 181);
+  width: 100%;
+  background-color: wheat;
+  opacity: 0.2;
 }
 </style>
