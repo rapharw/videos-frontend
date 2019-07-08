@@ -1,36 +1,20 @@
 <template>
-  <v-stepper v-model="step">
-    <v-stepper-header v-for="item in arraySteps" :key="item.step">
-      <v-stepper-step :complete="step > item.step" :step="item.step">{{item.name}}</v-stepper-step>
-      <v-divider></v-divider>
-    </v-stepper-header>
+  <div>
+    <v-stepper dark v-for="item in itemsStepper" :key="item.step" v-model="step" vertical>
+      <v-stepper-step :complete="step > item.step" :step="item.step">
+        {{item.name}}
+        <small>{{item.desc}}</small>
+      </v-stepper-step>
 
-    <v-stepper-items>
-      <v-stepper-content step="1">
-        <v-card class="mb-5" color="grey lighten-1" height="200px"></v-card>
-
+      <v-stepper-content :step="item.step">
+        <div>
+          <slot :name="stepperContent + item.step"></slot>
+        </div>
+        <v-btn outline flat @click="backStep">Back</v-btn>
         <v-btn color="primary" @click="continueStep">Continue</v-btn>
-
-        <v-btn flat @click="backStep">Cancel</v-btn>
       </v-stepper-content>
-
-      <v-stepper-content step="2">
-        <v-card class="mb-5" color="grey lighten-1" height="200px"></v-card>
-
-        <v-btn color="primary" @click="continueStep">Continue</v-btn>
-
-        <v-btn flat @click="backStep">Cancel</v-btn>
-      </v-stepper-content>
-
-      <v-stepper-content step="3">
-        <v-card class="mb-5" color="grey lighten-1" height="200px"></v-card>
-
-        <v-btn color="primary" @click="step = 1">Continue</v-btn>
-
-        <v-btn flat @click="backStep">Cancel</v-btn>
-      </v-stepper-content>
-    </v-stepper-items>
-  </v-stepper>
+    </v-stepper>
+  </div>
 </template>
 
 <script>
@@ -38,47 +22,45 @@ export default {
   data() {
     return {
       step: 1,
-      arraySteps: [
-        { step: 1, name: "Name of step 1" },
-        { step: 2, name: "Name of step 2" },
-        { step: 3, name: "Name of step 3" }
-      ]
+      stepperContent: "stepper-content-"
     };
   },
   methods: {
     continueStep() {
-      this.step = this.step + 1;
+      if (this.step < this.itemsStepper.length) this.step = this.step + 1;
     },
     backStep() {
       if (this.step > 1) {
         this.step = this.step - 1;
       }
     }
+  },
+  props: {
+    itemsStepper: {
+      type: Array,
+      required: true,
+      validator: value => {
+        const jsonValidator = require("@/functions/json-validator.js").default;
+
+        let innerSchema = {
+          type: "object",
+          properties: {
+            step: { type: "number" },
+            name: { type: "string" },
+            desc: { type: "string" }
+          },
+          required: ["step", "name"]
+        };
+
+        let schema = {
+          type: "array",
+          items: innerSchema
+        };
+        //Must be array of object json with properties step and name required: [{step:1, name: 'some string'}]
+        return jsonValidator.validateSchema(schema, value);
+      }
+    }
   }
-  //   props: {
-  //     itemsStepper: {
-  //       type: Array,
-  //       required: true,
-  //       validator: value => {
-  //         const jsonValidator = require("@/functions/json-validator.js").default;
-
-  //         let innerSchema = {
-  //           type: "object",
-  //           properties: {
-  //             src: { type: "string" }
-  //           },
-  //           required: ["src"]
-  //         };
-
-  //         let schema = {
-  //           type: "array",
-  //           items: innerSchema
-  //         };
-  //         //Must be array of object json with property src required: [{src:''}]
-  //         return jsonValidator.validateSchema(schema, value);
-  //       }
-  //     }
-  //   }
 };
 </script>
 
